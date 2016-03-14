@@ -5,16 +5,11 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
 
-    // Главное окно
     MainWindow w;
     w.windowTitle() = kTextTitle;
     w.show();
 
-    // Обработчик событий
-//    KeyFilter* pFilter = new KeyFilter(&w);
-//    w.installEventFilter(pFilter);
-
-    return a.exec();
+    return app.exec();
 }

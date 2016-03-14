@@ -21,10 +21,13 @@ public:
     QPaintWidget(QWidget * parent = 0);
     QVector <QPaintState> paintStates;
     int paintStatesIndex;
+    bool showShapeCenter;
 
 protected:
     void paintEvent(QPaintEvent *);
     QVector <QPointF> circle();
+    QVector <QPointF> arcRect();
+    QVector <QPointF> twoRects();
     QPointF transform(QPointF );
 };
 

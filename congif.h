@@ -3,9 +3,9 @@
 
 #include "math.h"
 
-#define kShapeWidth 200
-#define kShapeHeight 200
-#define kShapeCicrleRadius 50
+#define kShapeWidth (320)
+#define kShapeHeight (200)
+#define kShapeCicrleRadius (kShapeWidth/8)
 
 #define kBtnTextMove "Переместить"
 #define kBtnTextRotate "Повернуть"

@@ -70,6 +70,29 @@ public:
         QObject::connect(btnScale, SIGNAL(clicked()), this, SLOT(actionScale()));
 
         //*******************************
+
+        QMenuBar mnuBar;
+
+        QMenu* pmnu = new QMenu("Меню");
+
+        pmnu->addAction("Отменить", this,
+                        SLOT(actionUndo()),
+                        Qt::CTRL + Qt::Key_U );
+
+        QAction* pCheckableAction = pmnu->addAction("Показать границы фигуры", this,
+                                                    SLOT(actionToggleShowShapeCenter()),
+                                                    Qt::CTRL + Qt::Key_D );
+        pCheckableAction->setCheckable(true);
+        pCheckableAction->setChecked(wgt->showShapeCenter);
+        pmnu->addSeparator();
+
+        pmnu->addAction("&Выйти", this, SLOT(actionQuit()));
+
+
+        mnuBar.addMenu(pmnu);
+        mnuBar.show();
+
+        this->setMenuBar(&mnuBar);
     }
 
 public slots:
@@ -81,6 +104,11 @@ public slots:
         wgt->paintStates.append( paintState );
         updateScreen();
     }
+    void actionToggleShowShapeCenter()
+    {
+        wgt->showShapeCenter = !wgt->showShapeCenter;
+        updateScreen();
+    }
 
     void actionQuit(){
         QApplication::quit();
@@ -89,7 +117,7 @@ public slots:
 
         if (wgt->paintStatesIndex > 0)
         {
-            wgt->paintStates.removeFirst();
+            wgt->paintStates.removeLast();
             wgt->paintStatesIndex--;
             updateScreen();
         }
@@ -169,7 +197,7 @@ public slots:
 
             QPaintState nextPaintState = {
                 paintState.scaleCoef,
-                rotationAngle,
+                paintState.rotateAngle + rotationAngle,
                 paintState.center,
                 rotationCenter,
                 paintState.scaleCenter

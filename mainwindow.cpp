@@ -17,7 +17,6 @@ bool MainWindow::eventFilter(QObject *, QEvent *event)
 {
     if(event->type() == QKeyEvent::KeyPress )
     {
-
         qDebug()<<((QKeyEvent*)event)->key();
         return true;
     }

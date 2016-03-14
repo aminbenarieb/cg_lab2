@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>749</width>
-    <height>502</height>
+    <height>662</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -37,6 +37,7 @@
           <height>0</height>
          </size>
         </property>
+        <zorder></zorder>
        </widget>
       </item>
      </layout>
@@ -111,6 +112,19 @@
        </widget>
       </item>
       <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
        <widget class="Line" name="line_2">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -131,19 +145,6 @@
        <widget class="QLineEdit" name="lineEditRotationCenterY"/>
       </item>
       <item>
-       <spacer name="verticalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
        <widget class="QLineEdit" name="lineEditRotationAngle"/>
       </item>
       <item>
@@ -161,16 +162,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="labelScale">
-        <property name="text">
-         <string>TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEditScaleCenterX"/>
-      </item>
-      <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -182,6 +173,16 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="labelScale">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEditScaleCenterX"/>
       </item>
       <item>
        <widget class="QLineEdit" name="lineEditScaleCenterY"/>
@@ -208,6 +209,9 @@
      <width>749</width>
      <height>22</height>
     </rect>
+   </property>
+   <property name="nativeMenuBar">
+    <bool>true</bool>
    </property>
    <widget class="QMenu" name="menulab2">
     <property name="title">
