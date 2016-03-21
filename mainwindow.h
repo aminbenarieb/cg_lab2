@@ -53,8 +53,8 @@ public:
         lineEditCenterX->setPlaceholderText(kPlaceHolderCoordinateX);
         lineEditCenterY->setPlaceholderText(kPlaceHolderCoordinateY);
 
-        lineEditNextCenterX->setPlaceholderText(kPlaceHolderCoordinateX);
-        lineEditNextCenterY->setPlaceholderText(kPlaceHolderCoordinateY);
+        lineEditDeltaX->setPlaceholderText(kPlaceHolderDeltaX);
+        lineEditDeltaY->setPlaceholderText(kPlaceHolderDeltaY);
 
         lineEditRotationCenterX->setPlaceholderText(kPlaceHolderCoordinateX);
         lineEditRotationCenterY->setPlaceholderText(kPlaceHolderCoordinateY);
@@ -62,7 +62,11 @@ public:
 
         lineEditScaleCenterX->setPlaceholderText(kPlaceHolderCoordinateX);
         lineEditScaleCenterY->setPlaceholderText(kPlaceHolderCoordinateY);
-        lineEditScaleCoef->setPlaceholderText(kPlaceHolderScaleCoef);
+        lineEditScaleCoefX->setPlaceholderText(kPlaceHolderScaleCoefX);
+        lineEditScaleCoefY->setPlaceholderText(kPlaceHolderScaleCoefY);
+
+
+
         //*******************************
 
         QObject::connect(btnMove, SIGNAL(clicked()), this, SLOT(actionMove()) );
@@ -99,7 +103,7 @@ public slots:
     void actionSetUp()
     {
         QPointF centerPoint = QPointF(wgt->width()/2, wgt->height()/2);
-        QPaintState paintState = { 1, 0, centerPoint, centerPoint, centerPoint };
+        QPaintState paintState = { 1, 1, 0, 0, 0, centerPoint, centerPoint, centerPoint };
         wgt->paintStatesIndex = 0;
         wgt->paintStates.append( paintState );
         updateScreen();
@@ -127,20 +131,24 @@ public slots:
 
         QPaintState paintState = wgt->paintStates.last();
 
-        bool moveXValid = false;
-        bool moveYValid = false;
+        bool deltaXValid = false;
+        bool deltaYValid = false;
 
-        double moveX = lineEditNextCenterX->text().toDouble(&moveXValid);
-        double moveY = lineEditNextCenterY->text().toDouble(&moveYValid);
+        double deltaX = lineEditDeltaX->text().toDouble(&deltaXValid);
+        double deltaY = lineEditDeltaY->text().toDouble(&deltaYValid);
 
-        if (!lineEditNextCenterX->text().isEmpty() && !lineEditNextCenterY->text().isEmpty())
+        if (!lineEditDeltaX->text().isEmpty() && !lineEditDeltaY->text().isEmpty())
         {
-            if (moveXValid && moveYValid)
+            if (deltaXValid && deltaYValid)
             {
+
                 QPaintState nextPaintState = {
-                    paintState.scaleCoef,
+                    paintState.scaleCoefX,
+                    paintState.scaleCoefY,
                     paintState.rotateAngle,
-                    QPointF(moveX, moveY),
+                    deltaX,
+                    deltaY,
+                    paintState.center,
                     paintState.rotateCenter,
                     paintState.scaleCenter
                 };
@@ -156,7 +164,7 @@ public slots:
         }
         else
         {
-            showMsg("Введите координаты нового центра.");
+            showMsg("Введите данные для переноса.");
         }
 
 
@@ -196,8 +204,11 @@ public slots:
             }
 
             QPaintState nextPaintState = {
-                paintState.scaleCoef,
+                paintState.scaleCoefX,
+                paintState.scaleCoefY,
                 paintState.rotateAngle + rotationAngle,
+                paintState.deltaX,
+                paintState.deltaY,
                 paintState.center,
                 rotationCenter,
                 paintState.scaleCenter
@@ -216,15 +227,17 @@ public slots:
 
         QPaintState paintState = wgt->paintStates.last();
 
-        bool scaleCoefValid = false;
+        bool scaleCoefValidX = false;
+        bool scaleCoefValidY = false;
         bool scaleXValid = false;
         bool scaleYValid = false;
 
-        double scaleCoef = lineEditScaleCoef->text().toDouble(&scaleCoefValid);
+        double scaleCoefX = lineEditScaleCoefX->text().toDouble(&scaleCoefValidX);
+        double scaleCoefY = lineEditScaleCoefY->text().toDouble(&scaleCoefValidY);
         double scaleX = lineEditScaleCenterX->text().toDouble(&scaleXValid);
         double scaleY = lineEditScaleCenterY->text().toDouble(&scaleYValid);
 
-        if (scaleCoefValid)
+        if (scaleCoefValidX && scaleCoefValidY)
         {
 
             QPointF scaleCenter;
@@ -246,8 +259,11 @@ public slots:
             }
 
             QPaintState nextPaintState = {
-                paintState.scaleCoef*scaleCoef,
+                paintState.scaleCoefX*scaleCoefX,
+                paintState.scaleCoefY*scaleCoefY,
                 paintState.rotateAngle,
+                paintState.deltaX,
+                paintState.deltaY,
                 paintState.center,
                 paintState.rotateCenter,
                 scaleCenter
@@ -259,7 +275,7 @@ public slots:
         }
         else
         {
-             showMsg("Введите коэффицент масштабирования. (положительное действительное число)");
+             showMsg("Введите верные коэффиценты масштабирования. (действительное число)");
         }
 
     }

@@ -206,10 +206,26 @@ QPointF QPaintWidget::transform(QPointF point)
 {
     QPaintState *paintState = &paintStates.last();
     QPointF *scaleCenter = &(paintState->scaleCenter);
-    double scale =  paintState->scaleCoef;
+    double scaleX =  paintState->scaleCoefX;
+    double scaleY =  paintState->scaleCoefY;
+    double deltaX = paintState->deltaX;
+    double deltaY = paintState->deltaY;
+
     QPointF *rotateCenter =  &(paintState->rotateCenter);
     double angle = kDegreeToRadian(paintState->rotateAngle);
 
-    return QPointF(scale * (rotateCenter->x()+ (point.x() - rotateCenter->x()) * cos(angle) - (point.y()- rotateCenter->y()) * sin(angle)) + scaleCenter->x() * (1 - scale),
-                   scale * (rotateCenter->y()+ (point.y() - rotateCenter->y()) * cos(angle) + (point.x() - rotateCenter->x()) * sin(angle)) + scaleCenter->y() * (1 - scale));
+    return QPointF(
+                scaleX * (
+                    rotateCenter->x() +
+                    (point.x() + deltaX - rotateCenter->x()) * cos(angle) -
+                    (point.y() + deltaY- rotateCenter->y()) * sin(angle)
+                    ) +
+                scaleCenter->x() * (1 - scaleX),
+
+                scaleY * ( rotateCenter->y() +
+                          (point.y() + deltaY - rotateCenter->y()) * cos(angle) +
+                          (point.x() + deltaX - rotateCenter->x()) * sin(angle)
+                          ) +
+                scaleCenter->y() * (1 - scaleY)
+                );
 }

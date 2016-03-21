@@ -14,14 +14,17 @@
 #define kTextTitle "Лабараторная работа 2"
 
 #define kLabelCenter "Координаты центра"
-#define kLabelNextCenter "Координаты нового центра"
+#define kLabelNextCenter "Смещение"
 #define kLabelRotation "Поворот"
 #define kLabelScale "Масштабирование"
 
 #define kPlaceHolderCoordinateX "Координата X"
 #define kPlaceHolderCoordinateY "Координата Y"
+#define kPlaceHolderDeltaX "По оси X"
+#define kPlaceHolderDeltaY "По оси Y"
 #define kPlaceHolderRotationAngle "Угол поворота"
-#define kPlaceHolderScaleCoef "Коэффицент масштабирования"
+#define kPlaceHolderScaleCoefX "Коэффицент масштабирования по X"
+#define kPlaceHolderScaleCoefY "Коэффицент масштабирования по Y"
 
 
 #define kDrawPointRadius 3

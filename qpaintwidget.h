@@ -7,8 +7,11 @@
 class QPaintEvent;
 struct QPaintState
 {
-    double scaleCoef;
+    double scaleCoefX;
+    double scaleCoefY;
     double rotateAngle;
+    double deltaX;
+    double deltaY;
     QPointF center;
     QPointF rotateCenter;
     QPointF scaleCenter;
