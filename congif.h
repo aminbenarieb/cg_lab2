@@ -7,6 +7,7 @@
 #define kShapeHeight (200)
 #define kShapeCicrleRadius (kShapeWidth/8)
 
+#define kBtnTextApply "Применить"
 #define kBtnTextMove "Переместить"
 #define kBtnTextRotate "Повернуть"
 #define kBtnTextScale "Масштабировать"

@@ -36,6 +36,7 @@ public:
         //*******************************
 
         //***** Buttons Settings ******
+        btnNewCenter->setText(kBtnTextApply);
         btnMove->setText(kBtnTextMove);
         btnRotate->setText(kBtnTextRotate);
         btnScale->setText(kBtnTextScale);
@@ -69,6 +70,7 @@ public:
 
         //*******************************
 
+        QObject::connect(btnNewCenter, SIGNAL(clicked()), this, SLOT(actionNewCenter()) );
         QObject::connect(btnMove, SIGNAL(clicked()), this, SLOT(actionMove()) );
         QObject::connect(btnRotate, SIGNAL(clicked()), this, SLOT(actionRotate()));
         QObject::connect(btnScale, SIGNAL(clicked()), this, SLOT(actionScale()));
@@ -127,6 +129,50 @@ public slots:
         }
     }
 
+    void actionNewCenter(){
+
+        QPaintState paintState = wgt->paintStates.last();
+
+        bool xValid = false;
+        bool yValid = false;
+
+        double x = lineEditCenterX->text().toDouble(&xValid);
+        double y = lineEditCenterY->text().toDouble(&yValid);
+
+        if (!lineEditCenterX->text().isEmpty() && !lineEditCenterY->text().isEmpty())
+        {
+            if (xValid && yValid)
+            {
+
+                QPaintState nextPaintState = {
+                    paintState.scaleCoefX,
+                    paintState.scaleCoefY,
+                    paintState.rotateAngle,
+                    paintState.deltaX,
+                    paintState.deltaY,
+                    QPointF(x,y),
+                    QPointF(x,y),
+                    QPointF(x,y)
+                };
+                wgt->paintStatesIndex++;
+                wgt->paintStates.append( nextPaintState );
+
+                updateScreen();
+            }
+            else
+            {
+                showMsg("Координаты нового центра должны быть дейстительными числами.");
+            }
+        }
+        else
+        {
+            showMsg("Введите данные для нового центра.");
+        }
+
+
+
+    }
+
     void actionMove(){
 
         QPaintState paintState = wgt->paintStates.last();
@@ -159,7 +205,7 @@ public slots:
             }
             else
             {
-                showMsg("Координаты нового центра должны быть дейстительными числами.");
+                showMsg("Неверный ввод для задания переноса.");
             }
         }
         else

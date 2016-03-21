@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>749</width>
-    <height>662</height>
+    <height>675</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -59,14 +59,21 @@
       <item>
        <widget class="QLineEdit" name="lineEditCenterX">
         <property name="readOnly">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLineEdit" name="lineEditCenterY">
         <property name="readOnly">
-         <bool>true</bool>
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btnNewCenter">
+        <property name="text">
+         <string>PushButton</string>
         </property>
        </widget>
       </item>
